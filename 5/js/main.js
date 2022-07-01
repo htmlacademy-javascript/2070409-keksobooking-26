@@ -1,4 +1,6 @@
-import {ads} from './cards-generator.js';
+import {getCard} from './cards-generator.js';
+import {getAdvertisement} from './ad-generator.js';
 
-const visualTest = document.querySelector('#map-canvas'); //DELETE
-visualTest.appendChild(ads); //DELETE
+const similarCards = getAdvertisement(7);
+getCard(similarCards[6]);
+

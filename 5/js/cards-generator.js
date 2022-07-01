@@ -1,11 +1,8 @@
-import {getAdvertisement} from './ad-generator.js';
 import {TYPE_OPTIONS} from './data.js';
 
 const cardTemplate = document.querySelector('#card').content;
-const similarCards = getAdvertisement(2);
 
-const ads = document.createDocumentFragment();
-similarCards.forEach(({offer, author}) => {
+const getCard = ({offer, author}) => {
   const newCard = cardTemplate.cloneNode(true);
   newCard.querySelector('.popup__title').textContent = offer.title; // TITLE
   newCard.querySelector('.popup__text--address').textContent = offer.address; // ADDRESS
@@ -25,12 +22,14 @@ similarCards.forEach(({offer, author}) => {
   offer.photos.forEach((photoSrc) => {
     const photo = newCard.querySelector('.popup__photo').cloneNode(true);
     photo.src = photoSrc;
-
     newCard.querySelector('.popup__photos').appendChild(photo);
   }); // PHOTOS
   newCard.querySelectorAll('.popup__photo')[0].classList.add('hidden'); // hiding template
-  newCard.querySelector('.popup__avatar').src = author.avatar; // avatar
-  ads.appendChild(newCard);
-});
+  newCard.querySelector('.popup__avatar').src = author.avatar; // AVATAR
+  //
+  const visualTest = document.querySelector('#map-canvas'); //--DELETE
+  visualTest.appendChild(newCard);
+  return newCard;
+};
 
-export {ads};
+export {getCard};
