@@ -1,4 +1,4 @@
-import {mainMarker, markerPosition} from '../map/map-start-settings.js';
+import {DEFAULT_LAT_LNG} from '../data.js';
 
 const adForm = document.querySelector('.ad-form');
 const price = adForm.querySelector('#price');
@@ -39,8 +39,7 @@ timeOut.addEventListener('change', () => {
   timeIn.value = timeOut.value;
 }); // TIME
 
-mainMarker.on('moveend', () => {
-  address.value = `${markerPosition.lat.toFixed(5)}, ${markerPosition.lng.toFixed(5)}`;
-});
+address.value = `${DEFAULT_LAT_LNG.lat.toFixed(5)}, ${DEFAULT_LAT_LNG.lng.toFixed(5)}`;
+
 
 export {updateSlider};

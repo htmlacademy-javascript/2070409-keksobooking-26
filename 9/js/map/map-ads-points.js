@@ -5,7 +5,7 @@ import {getCard} from '../cards-generator.js';
 const ads = getAdvertisement(10);
 
 const adMarkerIcon = L.icon({
-  iconUrl: '../img/pin.svg',
+  iconUrl: './img/pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });

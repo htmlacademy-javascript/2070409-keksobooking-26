@@ -1,18 +1,15 @@
-import {changePageMode} from '../form/form-mode.js'; // DELETE
+import {changePageMode} from '../form/form-mode.js';
+import {DEFAULT_LAT_LNG} from '../data.js';
 
 changePageMode(false);
 
-//const mapElement = document.querySelector('#map-canvas');
+const address = document.querySelector('#address');
 
 const mainMap = L.map('map-canvas')
   .on('load', () => {
-    //console.log('Карта инициализирована'); //DELETE
     changePageMode(true);
   })
-  .setView({
-    lat: 35.6895,
-    lng: 139.69171
-  }, 10);
+  .setView(DEFAULT_LAT_LNG, 10);
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
@@ -21,27 +18,24 @@ L.tileLayer(
 ).addTo(mainMap);
 
 const mainIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
+  iconUrl: './img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
 
 const mainMarker = L.marker(
-  {
-    lat: 35.6895,
-    lng: 139.69171,
-  },
+  DEFAULT_LAT_LNG,
   {
     draggable: true,
     icon: mainIcon
   }
 );
-let markerPosition;
+
 mainMarker.addTo(mainMap);
 mainMarker.on('moveend', (evt) => {
-  markerPosition = evt.target.getLatLng();
+  const {lat, lng} = evt.target.getLatLng();
+  address.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
 });
 
-export {markerPosition, mainMarker};
 
 export {mainMap};
