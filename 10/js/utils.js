@@ -43,13 +43,13 @@ const resetForm = () => {
 const removeSuccessMessage = (e) => {
   if (e.key === 'Escape' || e.key === undefined) {
     document.body.removeChild(successMessage);
-    document.removeEventListener('click', removeSuccessMessage);
+    successMessage.removeEventListener('click', removeSuccessMessage);
     document.removeEventListener('keydown', removeSuccessMessage);
   }
 };
 const addSuccessMessage = () => {
   document.body.appendChild(successMessage);
-  document.addEventListener('click', removeSuccessMessage);
+  successMessage.addEventListener('click', removeSuccessMessage);
   document.addEventListener('keydown', removeSuccessMessage);
 };
 
@@ -57,13 +57,13 @@ const addSuccessMessage = () => {
 const removeErrorMessage = (e) => {
   if (e.key === 'Escape' || e.key === undefined) {
     document.body.removeChild(errorMessage);
-    document.removeEventListener('click', removeErrorMessage);
+    errorMessage.removeEventListener('click', removeErrorMessage);
     document.removeEventListener('keydown', removeErrorMessage);
   }
 };
 const addErrorMessage = () => {
   document.body.appendChild(errorMessage);
-  document.addEventListener('click', removeErrorMessage);
+  errorMessage.addEventListener('click', removeErrorMessage);
   document.addEventListener('keydown', removeErrorMessage);
 };
 export {showAlert, resetForm, addressToDefault, addSuccessMessage, addErrorMessage};

@@ -69,7 +69,9 @@ adForm.addEventListener('submit', (e) => {
         submit.removeAttribute('disabled');
       },
       () => {
+        resetForm();
         addErrorMessage();
+        submit.removeAttribute('disabled');
       });
   }
 });
