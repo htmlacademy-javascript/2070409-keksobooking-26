@@ -6,7 +6,7 @@ const getData = (onSuccess, onFail) => {
 };
 
 const sendData = (bodyData, onSuccess, onFail) => {
-  fetch('https://26.javascript.pages.acdemy/keksobooking',{
+  fetch('https://26.javascript.pages.academy/keksobooking',{
     method: 'POST',
     body: bodyData
   })

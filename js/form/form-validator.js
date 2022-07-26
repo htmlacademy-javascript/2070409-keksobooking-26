@@ -1,7 +1,8 @@
-import {GUESTS_OPTION, TYPE_OPTIONS_PRICE} from '../data.js';
+import {GUESTS_OPTION, MAX_PRICE, TYPE_OPTIONS_PRICE} from '../data.js';
 import {updateSlider} from './form-utils.js';
 import {sendData} from '../fetch-settings.js';
 import {resetForm, addErrorMessage, addSuccessMessage} from '../utils.js';
+import './form-images.js';
 
 const adForm = document.querySelector('.ad-form');
 const selectedRoomOption = adForm.querySelector('#room_number');
@@ -27,9 +28,9 @@ adFormPristine.addValidator(adForm.querySelector('#title'),
 
 adFormPristine.addValidator(adForm.querySelector('#price'),
   (value) => (
-    +value < 100000
+    +value < MAX_PRICE
   ),
-  'Цена не должна превышать 100000'
+  `Цена не должна превышать ${MAX_PRICE}`
 ); //PRICE max
 
 const guestsOptionValidator = (value) => (

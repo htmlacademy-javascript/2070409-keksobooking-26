@@ -12,9 +12,6 @@ changeMapFilterMode(false);
 const mainMap = L.map('map-canvas'); //MAP GENERATE
 const mapAdsMarkers = L.layerGroup().addTo(mainMap); //LAYER GROUP GENERATE
 
-const onDataFail = () => {
-  showAlert('Данные о похожих объявлениях недоступны', document.querySelector('.map__canvas'));
-};
 mainMap.on('load', () => {
   changePageMode(true);
   getData((data) => {
@@ -26,7 +23,9 @@ mainMap.on('load', () => {
     mapFilters.addEventListener('reset', () => {
       setTimeout(() => renderMarkers(data, mapAdsMarkers));
     });
-  }, onDataFail);
+  }, () => {
+    showAlert('Данные о похожих объявлениях недоступны', document.querySelector('.map__canvas'));
+  });
 }).setView(DEFAULT_LAT_LNG, 10);
 
 L.tileLayer(

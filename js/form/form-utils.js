@@ -1,4 +1,5 @@
 import {setAddressToDefault} from '../utils.js';
+import {MAX_PRICE, TYPE_OPTIONS_PRICE} from '../data.js';
 
 const adForm = document.querySelector('.ad-form');
 const price = adForm.querySelector('#price');
@@ -8,8 +9,8 @@ const timeOut = adForm.querySelector('#timeout');
 
 noUiSlider.create(priceSlider, {
   range: {
-    min: 1000, //because flat selected by default and min price of the flat is 1000
-    max: 100000
+    min: TYPE_OPTIONS_PRICE.flat[1], //because flat selected by default
+    max: MAX_PRICE
   },
   start: 0,
   step: 1,
@@ -19,15 +20,15 @@ priceSlider.noUiSlider.on('update', () => {
   price.value = parseFloat(String(priceSlider.noUiSlider.get()));
 });
 price.addEventListener('change', () => {
-  //
+  priceSlider.noUiSlider.set(price.value);
 });
 const updateSlider = () => {
   priceSlider.noUiSlider.updateOptions({
     range: {
       min: +price.placeholder,
-      max: 100000
+      max: MAX_PRICE
     },
-    start: +price.placeholder
+    start: price.value
   });
 }; // PRICE slider
 

@@ -7,6 +7,8 @@ const mapFilter = document.querySelector('.map__filters');
 const address = document.querySelector('#address');
 const successMessage = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
 const errorMessage = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+const imageAvatar = document.querySelector('.ad-form-header__preview>img');
+const imagePrev = document.querySelector('.ad-form__photo');
 
 const showAlert = (message, container) => {
   const alertMessage = document.createElement('div');
@@ -38,6 +40,8 @@ const resetForm = () => {
   updateSlider();
   setAddressToDefault();
   mainMap.closePopup().setView(DEFAULT_LAT_LNG, 10);
+  imageAvatar.src = 'img/muffin-grey.svg';
+  imagePrev.firstChild.remove();
 };
 
 const removeSuccessMessage = (e) => {
@@ -68,18 +72,10 @@ const addErrorMessage = () => {
 };
 
 function debounce (callback, timeoutDelay = 500) {
-  // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
-  // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
   let timeoutId;
   return (...rest) => {
-    // Перед каждым новым вызовом удаляем предыдущий таймаут,
-    // чтобы они не накапливались
     clearTimeout(timeoutId);
-    // Затем устанавливаем новый таймаут с вызовом колбэка на ту же задержку
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
-
-    // Таким образом цикл «поставить таймаут - удалить таймаут» будет выполняться,
-    // пока действие совершается чаще, чем переданная задержка timeoutDelay
   };
 }
 export {showAlert, resetForm, setAddressToDefault, addSuccessMessage, addErrorMessage, debounce};
