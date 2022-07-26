@@ -7,6 +7,8 @@ const mapFilter = document.querySelector('.map__filters');
 const address = document.querySelector('#address');
 const successMessage = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
 const errorMessage = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+const imageAvatar = document.querySelector('.ad-form-header__preview>img');
+const imagePrev = document.querySelector('.ad-form__photo');
 
 const showAlert = (message, container) => {
   const alertMessage = document.createElement('div');
@@ -38,6 +40,8 @@ const resetForm = () => {
   updateSlider();
   setAddressToDefault();
   mainMap.closePopup().setView(DEFAULT_LAT_LNG, 10);
+  imageAvatar.src = 'img/muffin-grey.svg';
+  imagePrev.firstChild.remove();
 };
 
 const removeSuccessMessage = (e) => {

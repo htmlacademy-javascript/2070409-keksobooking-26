@@ -12,16 +12,6 @@ const isImageValid = (file) => {
   ));
 };
 
-// const makePrevImage = (file) => {
-//   const prevImage = document.createElement('img');
-//   prevImage.src = URL.createObjectURL(file);
-//   prevImage.alt = 'Фото жилья';
-//   prevImage.width = 40;
-//   prevImage.height = 44;
-//   prevImage.style.margin = '15px';
-//   imagePrev.appendChild(prevImage);
-// };
-
 inputAvatar.addEventListener('change', () => {
   const avatarFile = inputAvatar.files[0];
   if (isImageValid(avatarFile)) {
@@ -31,17 +21,11 @@ inputAvatar.addEventListener('change', () => {
 
 const prevImage = document.createElement('img');
 prevImage.alt = 'Фото жилья';
-prevImage.width = 40;
-prevImage.height = 44;
-prevImage.style.margin = '15px';
+prevImage.width = 70;
+prevImage.height = 70;
 
 inputPrev.addEventListener('change', () => {
   const prevFile = inputPrev.files[0];
-  // for (const file of prevFiles) {
-  //   if (isImageValid(file)) {
-  //     makePrevImage(file);
-  //   }
-  // }
   if (!imagePrev.firstChild) {
     imagePrev.appendChild(prevImage);
   }
