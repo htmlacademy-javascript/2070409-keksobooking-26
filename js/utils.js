@@ -41,7 +41,9 @@ const resetForm = () => {
   setAddressToDefault();
   mainMap.closePopup().setView(DEFAULT_LAT_LNG, 10);
   imageAvatar.src = 'img/muffin-grey.svg';
-  imagePrev.firstChild.remove();
+  if (imagePrev.firstChild) {
+    imagePrev.firstChild.remove();
+  }
 };
 
 const removeSuccessMessage = (e) => {
