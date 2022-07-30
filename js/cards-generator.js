@@ -1,11 +1,11 @@
 import {TYPE_OPTIONS_PRICE} from './data.js';
 
-const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
+const cardTemplateElement = document.querySelector('#card').content.querySelector('.popup');
 
 const getCards = (adsList) => {
   const cardsList = [];
   adsList.forEach(({offer, author}) => {
-    const newCard = cardTemplate.cloneNode(true);
+    const newCard = cardTemplateElement.cloneNode(true);
     newCard.querySelector('.popup__title').textContent = offer.title; // TITLE
     newCard.querySelector('.popup__text--address').textContent = offer.address; // ADDRESS
     newCard.querySelector('.popup__text--price').innerHTML = `${offer.price} <span>₽/ночь</span>`; // PRICE

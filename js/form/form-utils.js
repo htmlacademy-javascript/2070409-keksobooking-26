@@ -1,42 +1,42 @@
 import {setAddressToDefault} from '../utils.js';
-import {MAX_PRICE, TYPE_OPTIONS_PRICE} from '../data.js';
+import {PRICE_OPTIONS, TYPE_OPTIONS_PRICE} from '../data.js';
 
-const adForm = document.querySelector('.ad-form');
-const price = adForm.querySelector('#price');
-const priceSlider = adForm.querySelector('.ad-form__slider');
-const timeIn = adForm.querySelector('#timein');
-const timeOut = adForm.querySelector('#timeout');
+const adFormElement = document.querySelector('.ad-form');
+const priceElement = adFormElement.querySelector('#price');
+const priceSliderElement = adFormElement.querySelector('.ad-form__slider');
+const timeInElement = adFormElement.querySelector('#timein');
+const timeOutElement = adFormElement.querySelector('#timeout');
 
-noUiSlider.create(priceSlider, {
+noUiSlider.create(priceSliderElement, {
   range: {
     min: TYPE_OPTIONS_PRICE.flat[1], //because flat selected by default
-    max: MAX_PRICE
+    max: PRICE_OPTIONS.max
   },
   start: 0,
   step: 1,
 });
 
-priceSlider.noUiSlider.on('update', () => {
-  price.value = parseFloat(String(priceSlider.noUiSlider.get()));
+priceSliderElement.noUiSlider.on('update', () => {
+  priceElement.value = parseFloat(String(priceSliderElement.noUiSlider.get()));
 });
-price.addEventListener('change', () => {
-  priceSlider.noUiSlider.set(price.value);
+priceElement.addEventListener('change', () => {
+  priceSliderElement.noUiSlider.set(priceElement.value);
 });
 const updateSlider = () => {
-  priceSlider.noUiSlider.updateOptions({
+  priceSliderElement.noUiSlider.updateOptions({
     range: {
-      min: +price.placeholder,
-      max: MAX_PRICE
+      min: +priceElement.placeholder,
+      max: PRICE_OPTIONS.max
     },
-    start: price.value
+    start: priceElement.value
   });
 }; // PRICE slider
 
-timeIn.addEventListener('change', () => {
-  timeOut.value = timeIn.value;
+timeInElement.addEventListener('change', () => {
+  timeOutElement.value = timeInElement.value;
 });
-timeOut.addEventListener('change', () => {
-  timeIn.value = timeOut.value;
+timeOutElement.addEventListener('change', () => {
+  timeInElement.value = timeOutElement.value;
 }); // TIME
 
 setAddressToDefault();

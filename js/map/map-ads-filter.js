@@ -1,39 +1,40 @@
-import {ADS_COUNT} from '../data.js';
+import {ADS_COUNT, PRICE_OPTIONS} from '../data.js';
+import {isValueDefault} from '../utils.js';
 
 const getFilteredAds = (ads) => {
-  const mapFilters = document.querySelector('.map__filters');
-  const type = mapFilters.querySelector('#housing-type').value;
-  const price = mapFilters.querySelector('#housing-price').value;
-  const rooms = mapFilters.querySelector('#housing-rooms').value;
-  const guests = mapFilters.querySelector('#housing-guests').value;
-  const features = mapFilters.querySelector('#housing-features').querySelectorAll('.map__checkbox');
+  const mapFiltersElement = document.querySelector('.map__filters');
+  const typeElement = mapFiltersElement.querySelector('#housing-type').value;
+  const priceElement = mapFiltersElement.querySelector('#housing-price').value;
+  const roomsElement = mapFiltersElement.querySelector('#housing-rooms').value;
+  const guestsElement = mapFiltersElement.querySelector('#housing-guests').value;
+  const featuresElement = mapFiltersElement.querySelector('#housing-features').querySelectorAll('.map__checkbox');
   const typeFilter = (ad) => (
-    type === ad.offer.type || type === 'any'
+    typeElement === ad.offer.type || isValueDefault(typeElement)
   );
   const priceFilter = (ad) => {
-    switch (price) {
+    switch (priceElement) {
       case 'high':
-        return ad.offer.price >= 50000;
+        return ad.offer.price >= PRICE_OPTIONS.high;
       case 'middle':
-        return ad.offer.price >= 10000 && ad.offer.price <= 50000;
+        return ad.offer.price >= PRICE_OPTIONS.low && ad.offer.price <= PRICE_OPTIONS.high;
       case 'low':
-        return ad.offer.price <= 10000;
+        return ad.offer.price <= PRICE_OPTIONS.low;
       default:
         return true;
     }
   };
   const roomsFilter = (ad) => (
-    +rooms === ad.offer.rooms || rooms === 'any'
+    +roomsElement === ad.offer.rooms || isValueDefault(roomsElement)
   );
   const guestsFilter = (ad) => (
-    +guests === ad.offer.guests || guests === 'any'
+    +guestsElement === ad.offer.guests || isValueDefault(guestsElement)
   );
   const featuresFilter = (ad) => {
     if (ad.offer.features) {
-      return Array.from(features).every((feature) =>
+      return Array.from(featuresElement).every((feature) =>
         !(feature.checked && !ad.offer.features.includes(feature.value)));
     } else {
-      return Array.from(features).every((feature) =>
+      return Array.from(featuresElement).every((feature) =>
         feature.checked === false
       );
     }

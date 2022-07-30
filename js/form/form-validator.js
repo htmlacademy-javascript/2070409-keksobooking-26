@@ -1,82 +1,82 @@
-import {GUESTS_OPTION, MAX_PRICE, TYPE_OPTIONS_PRICE} from '../data.js';
+import {GUESTS_OPTION, PRICE_OPTIONS, TITLE_SIZE, TYPE_OPTIONS_PRICE} from '../data.js';
 import {updateSlider} from './form-utils.js';
 import {sendData} from '../fetch-settings.js';
 import {resetForm, addErrorMessage, addSuccessMessage} from '../utils.js';
 import './form-images.js';
 
-const adForm = document.querySelector('.ad-form');
-const selectedRoomOption = adForm.querySelector('#room_number');
-const type = adForm.querySelector('#type');
-const price = adForm.querySelector('#price');
-const submit = adForm.querySelector('.ad-form__submit');
-const reset = adForm.querySelector('.ad-form__reset');
+const adFormElement = document.querySelector('.ad-form');
+const selectedRoomOptionElement = adFormElement.querySelector('#room_number');
+const typeElement = adFormElement.querySelector('#type');
+const priceElement = adFormElement.querySelector('#price');
+const submitElement = adFormElement.querySelector('.ad-form__submit');
+const resetElement = adFormElement.querySelector('.ad-form__reset');
 
 
-const adFormPristine = new Pristine(adForm, {
+const adFormPristine = new Pristine(adFormElement, {
   classTo: 'ad-form__element',
   errorTextParent: 'ad-form__element',
   errorTextTag: 'span',
   errorTextClass: 'ad-form__error',
 });
 
-adFormPristine.addValidator(adForm.querySelector('#title'),
+adFormPristine.addValidator(adFormElement.querySelector('#title'),
   (value) => (
-    value.length > 30 && value.length < 100
+    value.length > TITLE_SIZE.min && value.length < TITLE_SIZE.max
   ),
-  'От 30 до 100 символов'
+  `От ${TITLE_SIZE.min} до ${TITLE_SIZE.max} символов`
 ); // #TITLE
 
-adFormPristine.addValidator(adForm.querySelector('#price'),
+adFormPristine.addValidator(adFormElement.querySelector('#price'),
   (value) => (
-    +value < MAX_PRICE
+    +value < PRICE_OPTIONS.max
   ),
-  `Цена не должна превышать ${MAX_PRICE}`
+  `Цена не должна превышать ${PRICE_OPTIONS.max}`
 ); //PRICE max
 
 const guestsOptionValidator = (value) => (
-  GUESTS_OPTION[selectedRoomOption.value].includes(+value)
+  GUESTS_OPTION[selectedRoomOptionElement.value].includes(+value)
 );
-adFormPristine.addValidator(adForm.querySelector('#capacity'),
+adFormPristine.addValidator(adFormElement.querySelector('#capacity'),
   guestsOptionValidator,
   'Количество гостей не соответствует количеству комнат'
 ); //GUESTS
 
-adFormPristine.addValidator(adForm.querySelector('#price'),
+adFormPristine.addValidator(adFormElement.querySelector('#price'),
   (value) => (
-    +value >= TYPE_OPTIONS_PRICE[type.value][1]
+    +value >= TYPE_OPTIONS_PRICE[typeElement.value][1]
   ),
   'Цена меньше минимальной'
 ); //PRICE min
 
 const setMinPrice = () => {
-  price.placeholder = TYPE_OPTIONS_PRICE[type.value][1];
+  priceElement.placeholder = TYPE_OPTIONS_PRICE[typeElement.value][1];
 };
 setMinPrice();
-type.addEventListener('change', () => {
+typeElement.addEventListener('change', () => {
   setMinPrice();
   updateSlider();
-  adFormPristine.validate(price);
+  adFormPristine.validate(priceElement);
 });
 
-adForm.addEventListener('submit', (e) => {
+adFormElement.addEventListener('submit', (e) => {
   e.preventDefault();
-  if (adFormPristine.validate()) { //if (adFormPristine.validate()) {
-    const adFormData = new FormData(adForm);
-    submit.setAttribute('disabled', 'disabled');
+  if (adFormPristine.validate()) {
+    const adFormData = new FormData(adFormElement);
+    submitElement.setAttribute('disabled', 'disabled');
     sendData(adFormData,
       () => {
         resetForm();
         addSuccessMessage();
-        submit.removeAttribute('disabled');
+        submitElement.removeAttribute('disabled');
       },
       () => {
         addErrorMessage();
-        submit.removeAttribute('disabled');
+        submitElement.removeAttribute('disabled');
       });
   }
 });
 
-reset.addEventListener('click', (e) => {
+resetElement.addEventListener('click', (e) => {
   e.preventDefault();
   resetForm();
 });

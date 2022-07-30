@@ -1,20 +1,20 @@
 const changePageMode = (activate) => {
-  const form = document.querySelector('.ad-form');
-  const formContent = form.querySelectorAll('fieldset');
-  const priceSlider = document.querySelector('.ad-form__slider');
+  const formElement = document.querySelector('.ad-form');
+  const formContentElement = formElement.querySelectorAll('fieldset');
+  const priceSliderElement = document.querySelector('.ad-form__slider');
 
   if (activate) { // ACTIVATE
-    form.classList.remove('ad-form--disabled');
-    formContent.forEach((element) => {
+    formElement.classList.remove('ad-form--disabled');
+    formContentElement.forEach((element) => {
       element.removeAttribute('disabled');
     });
-    priceSlider.removeAttribute('disabled');
+    priceSliderElement.removeAttribute('disabled');
   } else { // DEACTIVATE
-    form.classList.add('ad-form--disabled');
-    formContent.forEach((element) => {
+    formElement.classList.add('ad-form--disabled');
+    formContentElement.forEach((element) => {
       element.setAttribute('disabled', 'disabled');
     });
-    priceSlider.setAttribute('disabled', 'disabled');
+    priceSliderElement.setAttribute('disabled', 'disabled');
   }
 };
 

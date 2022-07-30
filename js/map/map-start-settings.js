@@ -4,8 +4,8 @@ import {getData} from '../fetch-settings.js';
 import {debounce, showAlert} from '../utils.js';
 import {renderMarkers} from './map-ads-points.js';
 
-const address = document.querySelector('#address');
-const mapFilters = document.querySelector('.map__filters');
+const addressElement = document.querySelector('#address');
+const mapFiltersElement = document.querySelector('.map__filters');
 changePageMode(false);
 changeMapFilterMode(false);
 
@@ -17,10 +17,10 @@ mainMap.on('load', () => {
   getData((data) => {
     renderMarkers(data, mapAdsMarkers);
     changeMapFilterMode(true);
-    mapFilters.addEventListener('change', () => {
-      (debounce(() => renderMarkers(data, mapAdsMarkers), DEBOUNCE_DELAY))();
+    mapFiltersElement.addEventListener('change', () => {
+      (debounce(() => renderMarkers(data, mapAdsMarkers), DEBOUNCE_DELAY.current))();
     });
-    mapFilters.addEventListener('reset', () => {
+    mapFiltersElement.addEventListener('reset', () => {
       setTimeout(() => renderMarkers(data, mapAdsMarkers));
     });
   }, () => {
@@ -52,7 +52,7 @@ const mainMarker = L.marker(
 mainMarker.addTo(mainMap);
 mainMarker.on('moveend', (evt) => {
   const {lat, lng} = evt.target.getLatLng();
-  address.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+  addressElement.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
 });
 
 export {mainMap, mainMarker};
